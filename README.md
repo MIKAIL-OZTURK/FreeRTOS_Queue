@@ -4,8 +4,6 @@
 
 ## Kullanılan Birimler
 
-## Kullanılan Fonksiyonlar
-
 ## Ekran Çıktısı
 
 
