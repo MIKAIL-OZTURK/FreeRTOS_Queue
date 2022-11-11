@@ -56,14 +56,12 @@ UART_HandleTypeDef huart2;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
-
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
 /*************************** TASK HANDLER ***************************/
 xTaskHandle Sender_HPI_Handler;
 xTaskHandle Sender_LPI_Handler;
@@ -76,10 +74,7 @@ xQueueHandle SimpleQueue;
 void Sender_HPI_Task(void *argument);
 void Sender_LPI_Task(void *argument);
 void Receiver_Task(void *argument);
-
 uint8_t Rx_Data;
-
-
 /* USER CODE END 0 */
 
 /**
@@ -113,10 +108,9 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
-
   /*************************** Create Integer Queue ***************************/
   SimpleQueue = xQueueCreate(5, sizeof(int));
-  if(SimpleQueue == 0)			// Queue not created
+  if(SimpleQueue == NULL)			
   {
 	  char *str = "Unable to create Integer Queue \n";
 	  HAL_UART_Transmit(&huart2, (uint8_t*)str, strlen(str), HAL_MAX_DELAY);
@@ -131,12 +125,8 @@ int main(void)
   xTaskCreate(Sender_HPI_Task, "HPI_SEND", 128, NULL, 3, &Sender_HPI_Handler);
   xTaskCreate(Sender_LPI_Task, "LPI_SEND", 128, (void*)111, 2, &Sender_LPI_Handler);
   xTaskCreate(Receiver_Task, "Receive", 128, NULL, 1, &Receiver_Handler);
-
   HAL_UART_Receive_IT(&huart2, &Rx_Data, 1);
-
   vTaskStartScheduler();
-
-
   /* USER CODE END 2 */
 
   /* We should never get here as control is now taken by the scheduler */
@@ -268,34 +258,27 @@ void Sender_LPI_Task(void *argument)
 {
 	int ToSend;
 	uint32_t TickDelay = pdMS_TO_TICKS(1000);
-
 	while(1)
 	{
 		ToSend = (int)argument;
 		char *str = "Entered SENDER_LPI_Task\n about to SEND a number to the queue \n\n";
 		HAL_UART_Transmit(&huart2, (uint8_t*)str, strlen(str), HAL_MAX_DELAY);
-
 		xQueueSend(SimpleQueue, &ToSend, portMAX_DELAY);
-
 		char *str2 = "Successfully sent the number to the queue\nLeaving SERNDER_LPI_Task\n\n\n";
 		HAL_UART_Transmit(&huart2, (uint8_t*)str2, strlen(str2), HAL_MAX_DELAY);
-
 		vTaskDelay(TickDelay);
 	}
 }
-
 
 void Receiver_Task(void *argument)
 {
 	int received = 0;
 	uint32_t TickDelay = pdMS_TO_TICKS(5000);
-
 	while(1)
 	{
 		char str[100];
 		strcpy(str, "Entered RECEIVER Task\n about to RECEIVE a number to the queue \n\n");
 		HAL_UART_Transmit(&huart2, (uint8_t*)str, strlen(str), HAL_MAX_DELAY);
-
 		if(xQueueSend(SimpleQueue, &received, portMAX_DELAY) != pdTRUE)
 		{
 			HAL_UART_Transmit(&huart2, (uint8_t*)"Error in Receiving from Queue\n\n" , 31, 1000);
@@ -308,7 +291,6 @@ void Receiver_Task(void *argument)
 		vTaskDelay(TickDelay);
 	}
 }
-
 /* USER CODE END 4 */
 
 /**
