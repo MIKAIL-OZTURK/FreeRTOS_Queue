@@ -1,10 +1,3 @@
-# FreeRTOS | Kuyruk(Queue) Yapısı ile Çoklu Görevler Arasında İletişim
-
-## Kuyruk(Queue) Nedir ?
-İşlem sırası önemli olan verilerde kullanılan doğrusal bir veri yapısı türüdür. İlk giren ilk çıkar mantığına göre çalışır. (FIFO: First In - First Out)
-
-![queuegif](https://user-images.githubusercontent.com/75627147/201343420-6ba2228f-b224-41de-9bf8-fa449969db77.gif)
-
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
 <a name="readme-top"></a>
 <!--
@@ -59,12 +52,12 @@
 
 
 
-<!-- TABLE OF CONTENTS -->
+<!-- İÇİNDEKİLER -->
 <details>
-  <summary>Table of Contents</summary>
+  <summary>İçindekiler</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#about-the-project">Proje Hakkında</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
       </ul>
@@ -87,27 +80,14 @@
 
 
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
+<!-- PROJE HAKKINDA -->
+## Proje Hakkında
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
-
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
-
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+FreeRTOS'ta görevler arasında iletişim kurmak için kuyruk(queue) veri yapılarının nasıl kullanıldığıyla alakalı bir uygulamadır. USART üzerinden kuyruğa veri 
+göndermek için 2 adet görev(task), gelen verileri okumak için ise 1 adet görev(task) oluşturmuştur. 
 
 
-
-### Built With
+### Kullanılan Programlar 
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
